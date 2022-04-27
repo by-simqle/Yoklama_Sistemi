@@ -14,10 +14,10 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, password, password2 } = req.body;
+  const { name, phoneNumber, password, password2 } = req.body;
   let errors = [];
 
-  if (!name || !email || !password || !password2) {
+  if (!name || !phoneNumber || !password || !password2) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -33,25 +33,25 @@ router.post('/register', (req, res) => {
     res.render('register', {
       errors,
       name,
-      email,
+      phoneNumber,
       password,
       password2
     });
   } else {
-    User.findOne({ email: email }).then(user => {
+    User.findOne({ phoneNumber: phoneNumber }).then(user => {
       if (user) {
         errors.push({ msg: 'Email already exists' });
         res.render('register', {
           errors,
           name,
-          email,
+          phoneNumber,
           password,
           password2
         });
       } else {
         const newUser = new User({
           name,
-          email,
+          phoneNumber,
           password
         });
 

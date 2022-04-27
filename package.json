@@ -1,6 +1,6 @@
 {
   "name": "yoklama_sistemi",
-  "version": "1.0.0",
+  "version": "0.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "ascii-table": "^0.0.9",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
@@ -30,6 +31,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
+    "get-project-version": "^1.0.3",
     "jsonschema": "^1.4.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.3.1",
