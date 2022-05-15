@@ -1,5 +1,5 @@
-<h1 class="mt-4">Dashboard</h1>
-<p class="lead mb-3">Welcome <%= user.name %></p>
+<h1 class="mt-4">Yönetim Paneli</h1>
+<p class="lead mb-3">Hoşgeldiniz, <%= user.name %></p>
 <div class="container">
     <% for (var i = 0; i < data.length; i++) {%>
         <tr>
@@ -9,4 +9,20 @@
         </tr>
     <%}%>
 </div>
-<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<div class="container">
+  <% for (var j = 0; i < meta.length; i++) {%>
+      <tr>
+        <td><%= data[j]["_id"] %></td>
+        <td><%= data[j]["name"] %></td>
+        <td><%= data[j]["phoneNumber"] %></td>
+        <td><%= data[j]["parentPhoneNumber"] %></td>
+        <td><%= data[j]["date"] %></td>
+        <td><%= data[j]["schoolName"] %></td>
+        <td><%= data[j]["schoolNumber"] %></td>
+        <td><%= data[j]["roomNumber"] %></td>
+        <td><%= data[j]["studyClassNo"] %></td>
+      </tr>
+  <%}%>
+</div>
+<a href="/student/add" class="btn btn-success">Öğrenci Ekle</a>
+<a href="/users/logout" class="btn btn-secondary">Çıkış Yap</a>

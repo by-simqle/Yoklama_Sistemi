@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const { model, Schema } = require('mongoose');
 let mac_adress = [];
 
 
-const StudentSchema = new mongoose.Schema({
-  name: {
+const StudentSchema = new Schema({
+  studentName: {
     type: String,
     required: true
   },
-  phoneNumber: {
+  studentPhoneNumber: {
     type: String,
     required: true
   },
@@ -15,11 +15,10 @@ const StudentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  date: {
+  studentDate: {
     type: Date,
     default: Date.now
   },
- 
   schoolName: {
     type: String,
     required: true
@@ -32,30 +31,12 @@ const StudentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  courseExitTime: {
-    type: Date,
-  },
-  courseLateTime: {
-    type: Date,
-  },
-  courseDinnerTime: {
-    type: Boolean
-  },
   studyClassNo: {
     type: String,
     required: true
-  },
-  firstStudyTime: {
-    type: Boolean
-  },
-  secondStudyTime: {
-    type: Boolean
-  },
-  attendance: {
-    type: Boolean
   }
 });
 
-const Student = mongoose.model('Student', StudentSchema);
+const Student = model('Student', StudentSchema);
 
 module.exports = Student;

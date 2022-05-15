@@ -2,55 +2,102 @@
     <div class="col-md-6 m-auto">
       <div class="card card-body">
         <h1 class="text-center mb-3">
-          <i class="fas fa-user-plus"></i> Add Student
+          <i class="fas fa-user-plus"></i> Öğrenci Ekle
         </h1>
         <%= include ("./partials/messages"); %>
-        <form action="/users/register" method="POST">
+        <form action="/student/add" method="POST">
           <div class="form-group">
-            <label for="name">Öğrenci Adı</label>
+            <label for="studentName">Öğrenci Adı</label>
             <input
               type="name"
-              id="name"
-              name="name"
+              id="studentName"
+              name="studentName"
               class="form-control"
               placeholder="Ad giriniz"
-              value="<%= typeof name != 'undefined' ? name : '' %>"
+              value="<%= typeof studentName != 'undefined' ? studentName : '' %>"
             />
           </div>
           <div class="form-group">
-            <label for="phoneNumber">Telefon Numarası</label>
+            <label for="studentPhoneNumber">Telefon Numarası</label>
             <input
-              type="number"
-              id="phoneNumber"
-              name="phoneNumber"
+              type="tel"
+              id="studentPhoneNumber"
+              name="studentPhoneNumber"
               class="form-control"
               placeholder="Telefon Numarası Giriniz"
-              value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>"
+              value="<%= typeof studentPhoneNumber != 'undefined' ? studentPhoneNumber : '' %>"
             />
           </div>
           <div class="form-group">
-            <label for="parentPhoneNumber">Ebeveyn Telefon Numarası/label>
+            <label for="parentPhoneNumber">Ebeveyn Telefon Numarası</label>
             <input
-              type="number"
+              type="tel"
               id="parentPhoneNumber"
               name="parentPhoneNumber"
               class="form-control"
               placeholder="Veli Telefon Numarası Giriniz"
-              value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>"
+              value="<%= typeof parentPhoneNumber != 'undefined' ? parentPhoneNumber : '' %>"
             />
           </div>
-          <div class="form-group col-md-4">
-            <label for="schoolName">State</label>
-            <select id="schoolName" class="form-control" value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>">
+          <div class="form-group">
+            <label for="schoolName">Okul Adı</label>
+            <select id="schoolName" class="form-control" value="<%= typeof schoolName != 'undefined' ? schoolName : '' %>">
               <option selected>Okul Seç</option>
               <option>Şehit Muhsin Kiremitçi Fen Lisesi</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="schoolNumber">Okul Numarası</label>
+            <input
+              type="number"
+              id="schoolNumber"
+              name="schoolNumber"
+              class="form-control"
+              placeholder="Okul Numarasını Giriniz"
+              value="<%= typeof schoolNumber != 'undefined' ? schoolNumber : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="roomNumber">Oda Numarası</label>
+            <select id="roomNumber" class="form-control" value="<%= typeof roomNumber != 'undefined' ? roomNumber : '' %>">
+              <option selected>Seçiniz</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="studyClassNo">Etüt Sınıfı</label>
+            <select id="studyClassNo" class="form-control" value="<%= typeof studyClassNo != 'undefined' ? studyClassNo : '' %>">
+              <option selected>Seçiniz</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary btn-block">
-            Register
+            Öğrenci Ekle
           </button>
         </form>
-        <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+        <p class="lead mt-4">Eklediğiniz Öğrencilere bakmak için <a href="/dashboard">Tıklayınız</a></p>
       </div>
     </div>
   </div>
