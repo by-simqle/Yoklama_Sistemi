@@ -92,7 +92,7 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
             attendance
         });
         await attendancer.save();
-        res.redirect(`/student/id_${studentId}/attendance-success`)
+        res.redirect(`/dashboard`)
     } catch (err) {
         res.send(err)
     }
@@ -100,8 +100,15 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
 
 router.get('/id_:id/attendance-success', ensureAuthenticated, async (req, res) => {
     const studentId = req.query.id;
+    const students = await Student.find({
+        _id: studentId
+    })
+    const attendances = await Attendance.find({
+        studentId: studentId
+    })
     res.render('student', {
-        mid: studentId
+        student: attendances,
+        studentData: students
     })
 });
 
