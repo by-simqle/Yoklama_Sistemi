@@ -1,6 +1,4 @@
 const { model, Schema } = require('mongoose');
-let mac_adress = [];
-
 
 const StudentSchema = new Schema({
   studentName: {

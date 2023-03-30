@@ -1,18 +1,144 @@
 <h1 class="mt-4">Yönetim Paneli</h1>
 <p class="lead mb-3">Hoşgeldiniz, <%= user.name %></p>
 <div class="container">
-  <% for (var j = 0; j < data.length; j++) {%>
-      <tr>
-        <td><%= data[j]["studentName"] %></td>
-        <td><%= data[j]["phoneNumber"] %></td>
-        <td><%= data[j]["parentPhoneNumber"] %></td>
-        <td><%= data[j]["date"] %></td>
-        <td><%= data[j]["schoolName"] %></td>
-        <td><%= data[j]["schoolNumber"] %></td>
-        <td><%= data[j]["roomNumber"] %></td>
-        <td><%= data[j]["studyClassNo"] %></td>
-      </tr>
-  <%}%>
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Öğrenci Adı</th>
+            <th>Okul Adı</th>
+            <th>Okul Numarası</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (var j = 0; j < data.length; j++) { %>
+            <tr>
+                <td><%= data[j]["studentName"] %></td>
+                <td><%= data[j]["schoolName"] %></td>
+                <td><%= data[j]["schoolNumber"] %></td>
+                <td>
+                    <i class="fas fa-info-circle mr-2" data-toggle="modal" data-target="#detailsModal<%= j %>"></i>
+                    <i class="fas fa-plus mr-2" data-toggle="modal" data-target="#attendanceModal<%= j %>"></i>
+                    <a href="#" data-toggle="modal" data-target="#confirmDeleteModal<%= j %>"><i class="fas fa-trash-alt mr-2"></i></a>
+
+                    <div class="modal fade" id="attendanceModal<%= j %>" tabindex="-1" role="dialog" aria-labelledby="attendanceModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="attendanceModalLabel">Yoklama Al</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/student/id_<%= data[j]["_id"] %>/attendance">
+                                        <div class="form-group">
+                                            <label for="date">Tarih:</label>
+                                            <input type="date" class="form-control" id="date" name="date" value="<%= new Date().toISOString().substr(0, 10) %>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="courseExitTime">Kurs Çıkış Zamanı:</label>
+                                            <input type="time" class="form-control" id="courseExitTime" name="courseExitTime">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="courseLateTime">Course Late Time:</label>
+                                            <input type="time" class="form-control" id="courseLateTime" name="courseLateTime">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="courseDinnerTime">Akşam Yemeği Zamanı:</label>
+                                            <select class="form-control" id="courseDinnerTime" name="courseDinnerTime">
+                                                <option value="true">Yes</option>
+                                                <option value="false">No</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="firstStudyTime">İlk Etüt:</label>
+                                            <select class="form-control" id="firstStudyTime" name="firstStudyTime">
+                                                <option value="true">Var</option>
+                                                <option value="false">Yok</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="secondStudyTime">İkinci Etüt:</label>
+                                            <select class="form-control" id="secondStudyTime" name="secondStudyTime">
+                                                <option value="true">Var</option>
+                                                <option value="false">Yok</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="attendance">Yoklama:</label>
+                                            <select class="form-control" id="attendance" name="attendance">
+                                                <option value="true">Mevcut</option>
+                                                <option value="false">Mevcut Değil</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                    <a href="/student/id_<%= data[j]["_id"] %>/attendance-success?id=<%= data[j]["_id"] %>" class="btn btn-primary" id="addAttendanceButton" >Kayıtları Göster</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Delete Modal -->
+                    <div class="modal fade" id="confirmDeleteModal<%= j %>" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel">Öğrenci Silme İşlemi</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Öğrenciyi sistemden silmek istediğinize emin misiniz?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" action="/student/delete_<%= data[j]["_id"] %>">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                                        <button type="submit" class="btn btn-danger">Sil</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+
+            <!-- Popup modal for student details -->
+            <div class="modal fade" id="detailsModal<%= j %>" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailsModalLabel">Öğrenci Detayları</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Öğrenci Adı:</strong> <%= data[j]["studentName"] %></p>
+                            <p><strong>Telefon Numarası:</strong> <%= data[j]["studentPhoneNumber"] %></p>
+                            <p><strong>Veli Telefon Numarası:</strong> <%= data[j]["parentPhoneNumber"] %></p>
+                            <p><strong>Okul Adı:</strong> <%= data[j]["schoolName"] %></p>
+                            <p><strong>Okul Numarası:</strong> <%= data[j]["schoolNumber"] %></p>
+                            <p><strong>Oda Numarası:</strong> <%= data[j]["roomNumber"] %></p>
+                            <p><strong>Etüt Sınıfı No:</strong> <%= data[j]["studyClassNo"] %></p>
+                            <p><strong>Veritabanına Eklenme Tarihi:</strong> <%= data[j]["studentDate"].getDate() %>.<%= data[j]["studentDate"].getMonth()+1 %>.<%= data[j]["studentDate"].getFullYear() %>, <%= data[j]["studentDate"].getHours() %>:<%= data[j]["studentDate"].getMinutes() %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <% } %>
+        </tbody>
+    </table>
 </div>
+
+
 <a href="/student/add" class="btn btn-success">Öğrenci Ekle</a>
 <a href="/users/logout" class="btn btn-secondary">Çıkış Yap</a>

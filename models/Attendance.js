@@ -1,28 +1,37 @@
 const { model, Schema } = require('mongoose');
-let mac_adress = [];
-
 
 const AttendanceSchema = new Schema({
+  studentId: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
+    required: true
   },
   courseExitTime: {
-    type: Date,
+    type: String,
+    required: true
   },
   courseLateTime: {
-    type: Date,
+    type: String,
+    required: true
   },
   courseDinnerTime: {
-    type: Boolean
+    type: Boolean,
+    required: true
   },
   firstStudyTime: {
-    type: Boolean
+    type: Boolean,
+    required: true
   },
   secondStudyTime: {
-    type: Boolean
+    type: Boolean,
+    required: true
   },
   attendance: {
-    type: Boolean
+    type: Boolean,
+    required: true
   }
 });
 

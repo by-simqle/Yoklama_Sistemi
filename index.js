@@ -64,6 +64,12 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/student', require('./routes/student.js'));
+/*
+app.use(function(req, res, next) {
+  res.status(404).send("Üzgünüz, sayfa bulunamadı.");
+});
+*/
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
