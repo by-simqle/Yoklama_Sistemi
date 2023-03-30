@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const flash = require('connect-flash');
 const chalk = require('chalk')
 const session = require('express-session');
-const AsciiTable = require('ascii-table');
 
 
 const app = express();
@@ -30,6 +29,7 @@ mongoose
   .catch(err => console.log(err));
 
 // EJS
+app.use(express.static('public'))
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
@@ -65,7 +65,7 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/student', require('./routes/student.js'));
 
-var PORT = process.env.PORT;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(chalk.black.bgRed("\n                                  \n██    ██  ██████  ███████ ██████  \n ██  ██  ██    ██ ██      ██   ██ \n  ████   ██    ██ ███████ ██   ██ \n   ██    ██    ██      ██ ██   ██ \n   ██     ██████  ███████ ██████  \n                                  \n"));
   console.log(chalk.red(`${prvt.version}`));

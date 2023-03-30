@@ -1,19 +1,9 @@
 <h1 class="mt-4">Yönetim Paneli</h1>
 <p class="lead mb-3">Hoşgeldiniz, <%= user.name %></p>
 <div class="container">
-    <% for (var i = 0; i < data.length; i++) {%>
-        <tr>
-          <td><%= data[i]["_id"] %></td>
-          <td><%= data[i]["name"] %></td>
-          <td><%= data[i]["phoneNumber"] %></td>
-        </tr>
-    <%}%>
-</div>
-<div class="container">
-  <% for (var j = 0; i < meta.length; i++) {%>
+  <% for (var j = 0; j < data.length; j++) {%>
       <tr>
-        <td><%= data[j]["_id"] %></td>
-        <td><%= data[j]["name"] %></td>
+        <td><%= data[j]["studentName"] %></td>
         <td><%= data[j]["phoneNumber"] %></td>
         <td><%= data[j]["parentPhoneNumber"] %></td>
         <td><%= data[j]["date"] %></td>

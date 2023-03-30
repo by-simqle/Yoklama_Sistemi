@@ -1,41 +1,37 @@
 const express = require('express');
 const router = express.Router();
-// Load User model
 const Student = require('../models/Student');
 
-const { ensureAuthenticated } = require('../config/auth');
-
-router.get('/add', ensureAuthenticated, (req,res) => {
-    res.render('addStudent')
+router.get('/add', (req, res) => {
+    res.render('addStudent');
 })
 
-router.post('/add', ensureAuthenticated, (req,res) =>{
-    const { name, phoneNumber, parentPhoneNumber, schoolName, schoolNumber, roomNumber, studyClassNo } = req.body;
-    let errors = [];
-    if (!name || !phoneNumber || !parentPhoneNumber || !schoolName || !schoolNumber || !roomNumber || !studyClassNo) {
-      errors.push("heryeri doldurun")
-    }
-    if(errors.lenght > 0) {
-      res.render('add', {
-        name,
-        phoneNumber,
+router.post('/addStudent', async (req, res) => {
+    const {
+        studentName,
+        studentPhoneNumber,
         parentPhoneNumber,
         schoolName,
         schoolNumber,
         roomNumber,
         studyClassNo
-      });  
-    } else {
-      const newStudent = new Student({
-        name,
-        phoneNumber,
-        parentPhoneNumber,
-        schoolName,
-        schoolNumber,
-        roomNumber,
-        studyClassNo
-      }).save();
+    } = req.body;
+
+    try {
+        const student = new Student({
+            studentName,
+            studentPhoneNumber,
+            parentPhoneNumber,
+            schoolName,
+            schoolNumber,
+            roomNumber,
+            studyClassNo
+        });
+        await student.save();
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error(error);
     }
-})
+});
 
 module.exports = router;

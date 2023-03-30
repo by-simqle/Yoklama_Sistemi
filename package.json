@@ -21,10 +21,11 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "ascii-table": "^0.0.9",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "chalk": "^4.1.2",
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",
     "express": "^4.17.3",
@@ -34,10 +35,9 @@
     "get-project-version": "^1.0.3",
     "jsonschema": "^1.4.0",
     "method-override": "^3.0.0",
-    "mongoose": "^6.3.1",
-    "mysql": "^2.18.1",
-    "passport": "^0.5.2",
+    "mongoose": "^7.0.3",
+    "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^7.0.0"
+    "passport-local-mongoose": "^8.0.0"
   }
 }
