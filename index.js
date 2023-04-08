@@ -76,15 +76,5 @@ app.listen(PORT, () => {
   console.log(chalk.black.bgRed("\n                                  \n██    ██  ██████  ███████ ██████  \n ██  ██  ██    ██ ██      ██   ██ \n  ████   ██    ██ ███████ ██   ██ \n   ██    ██    ██      ██ ██   ██ \n   ██     ██████  ███████ ██████  \n                                  \n"));
   console.log(chalk.red(`${prvt.version}`));
   console.log(chalk.yellow(`Name: ${prvt.name}\nDescription: ${prvt.description}\nGithub ${prvt.repository.url}`) + chalk.cyan(`\n\n${prvt.author}\n${prvt.license}`) + chalk.magenta(`\n\nTotal Modules: ${Object.keys(prvt.dependencies).length + Object.keys(prvt.devDependencies).length}`))
-  var prvs = Object.keys(prvt.dependencies)
-  var prv = Object.values(prvt.dependencies)
-  var objKeys = [];
-  var objValues = [];
-  prvs.map(key => objKeys.push(key));
-  prv.map(key => objValues.push(key));
-  console.log(chalk.bgGray("\nName:Version\n"))
-  for(var i = 0; i<objKeys.length; i++) {
-    console.log(chalk.blue(objKeys[i] + ":" + objValues[i]));
-  }
   console.log("\n")
 });

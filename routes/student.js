@@ -92,7 +92,7 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
             attendance
         });
         await attendancer.save();
-        res.redirect(`/dashboard`)
+        res.redirect(`/student/id_${studentId}/attendance-success?id=${studentId}`)
     } catch (err) {
         res.send(err)
     }
