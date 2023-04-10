@@ -29,64 +29,88 @@
               <td><%= attendance.firstStudyTime ? 'Var' : 'Yok' %></td>
               <td><%= attendance.secondStudyTime ? 'Var' : 'Yok' %></td>
               <td><%= attendance.attendance ? 'Mevcut' : 'Mevcut Değil' %></td>
-              <td><i class="fa fa-pencil-alt me-2" data-bs-toggle="modal" data-bs-target="#editModal"></i></td>
+              <td><i class="fa fa-pencil-alt me-2" data-bs-toggle="modal" data-bs-target="#editModal_<%= attendance._id %>"></i></td>
+              <td><<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal_<%= attendance._id %>"><i class="fas fa-trash-alt me-2 text-danger"></i></a>/td>
+
             </tr>
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="editModalLabel">Yoklama Bilgisi Düzenle</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="POST" action="/student/id_<%= ["_id"] %>/attendance">
-                        <div class="form-group">
-                          <label for="courseExitTime">Ders Çıkış Zamanı</label>
-                          <input type="text" class="form-control" id="courseExitTime" placeholder="Ders Çıkış Zamanı">
-                        </div>
-                        <div class="form-group">
-                          <label for="courseLateTime">Ders Giriş Zamanı</label>
-                          <input type="text" class="form-control" id="courseLateTime" placeholder="Ders Giriş Zamanı">
-                        </div>
-                        <div class="form-group">
-                          <label for="courseDinnerTime">Akşam Yemeği</label>
-                          <select class="form-select" id="courseDinnerTime">
-                            <option selected disabled>Akşam Yemeği</option>
-                            <option value="true">Var</option>
-                            <option value="false">Yok</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="firstStudyTime">1. Etüt Zamanı</label>
-                          <select class="form-select" id="firstStudyTime">
-                            <option selected disabled>1. Etüt Zamanı</option>
-                            <option value="true">Var</option>
-                            <option value="false">Yok</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="secondStudyTime">2. Etüt Zamanı</label>
-                          <select class="form-select" id="secondStudyTime">
-                            <option selected disabled>2. Etüt Zamanı</option>
-                            <option value="true">Var</option>
-                            <option value="false">Yok</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="attendance">Yoklama</label>
-                          <select class="form-select" id="attendance">
-                            <option selected disabled>Yoklama</option>
-                            <option value="true">Mevcut</option>
-                            <option value="false">Mevcut Değil</option>
-                          </select>
-                        </div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                        <button type="submit" class="btn btn-primary">Kaydet</button>
-                      </form>
-                    </div>
+            <div class="modal fade" id="editModal_<%= attendance._id %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Yoklama Bilgisi Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" action="/student/id_<%= attendance.studentId %>/attendanceUpdate">
+                      <input type="hidden" id="attendanceId" name="attendanceId" value="<%= attendance._id %>">
+                      <input type="hidden" id="studentId" name="studentId" value="<%= attendance.studentId %>">
+                      <div class="mb-3">
+                        <label for="date" class="form-label">Tarih:</label>
+                        <input type="date" class="form-control" id="date" name="date" value="<%= attendance.date.toISOString().slice(0, 10) %>">
+                      </div>
+                      <div class="mb-3">
+                        <label for="courseExitTime" class="form-label">Kurs Çıkış Zamanı:</label>
+                        <input type="time" class="form-control" id="courseExitTime" name="courseExitTime" value="<%= attendance.courseExitTime %>">
+                      </div>
+                      <div class="mb-3">
+                        <label for="courseLateTime" class="form-label">Course Late Time:</label>
+                        <input type="time" class="form-control" id="courseLateTime" name="courseLateTime" value="<%= attendance.courseLateTime %>">
+                      </div>
+                      <div class="mb-3">
+                        <label for="courseDinnerTime" class="form-label">Akşam Yemeği Zamanı:</label>
+                        <select class="form-select" id="courseDinnerTime" name="courseDinnerTime">
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="firstStudyTime" class="form-label">İlk Etüt:</label>
+                        <select class="form-select" id="firstStudyTime" name="firstStudyTime">
+                          <option value="true">Var</option>
+                          <option value="false">Yok</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="secondStudyTime" class="form-label">İkinci Etüt:</label>
+                        <select class="form-select" id="secondStudyTime" name="secondStudyTime">
+                          <option value="true">Var</option>
+                          <option value="false">Yok</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="attendance">Yoklama:</label>
+                        <select class="form-select" id="attendance" name="attendance">
+                          <option value="true">Mevcut</option>
+                          <option value="false">Mevcut Değil</option>
+                        </select>
+                      </div>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                      <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </form>
                   </div>
                 </div>
-              </div>              
+              </div>
+            </div>
+            <div class="modal fade" id="deleteModal_<%= attendance._id %>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Öğrenci Yoklaması İşlemi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Öğrenciyi yoklamasını silmek istediğinize emin misiniz?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <form method="POST" action="/student/deleteAtt_<%= attendance._id %>">
+                      <input type="hidden" id="studentId" name="studentId" value="<%= attendance.studentId %>">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                      <button type="submit" class="btn btn-danger">Sil</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             <% }); %>
           </tbody>
         </table>
@@ -95,12 +119,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  <% if (student && student.length > 0) { %>
-  const student = <%= JSON.stringify(student) %>;
-  <% } else { %>
-  alert('Kayıt bulunamadı!');
-  window.location.href = '/dashboard';
-  <% } %>
-</script>

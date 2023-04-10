@@ -3,31 +3,17 @@
     <div class="card">
       <div class="card-body">
         <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Giriş Yap</h1>
-        <% if (typeof error !== 'undefined') { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show d-none" role="alert">
           <%= error %>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <% } %>
         <form action="/users/login" method="POST">
           <div class="form-floating mb-3">
-            <input
-              type="number"
-              id="phoneNumber"
-              name="phoneNumber"
-              class="form-control"
-              placeholder="Telefon Numaranızı Girin"
-            />
+            <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Telefon Numaranızı Girin" />
             <label for="phoneNumber">Telefon Numarası</label>
           </div>
           <div class="form-floating mb-3">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="form-control"
-              placeholder="Şifrenizi Girin"
-            />
+            <input type="password" id="password" name="password" class="form-control" placeholder="Şifrenizi Girin" />
             <label for="password">Şifre</label>
           </div>
           <button type="submit" class="btn btn-primary btn-block mb-3">Giriş Yap</button>
@@ -39,3 +25,10 @@
     </div>
   </div>
 </div>
+
+<% if (!error === false) { %>
+<script>
+  const alertBox = document.querySelector('.alert');
+  alertBox.classList.remove('d-none');
+</script>
+<% } %>

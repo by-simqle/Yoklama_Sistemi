@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/by-simqle/Yoklama_Sistemi#readme",
   "devDependencies": {
+    "ejs-lint": "^2.0.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {

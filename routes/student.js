@@ -45,12 +45,9 @@ router.post('/addStudent', ensureAuthenticated, async(req, res) => {
 });
 
 router.post('/delete_:id', ensureAuthenticated, async(req, res) => {
-    var studentId = req.params.id;
-
     try {
         const studentId = req.params.id;
-        const result = await Student.findByIdAndDelete(studentId);
-        console.log("Belge silindi: ", result);
+        await Student.findByIdAndDelete(studentId);
         res.redirect('/dashboard');
     } catch (err) {
         console.log(err);
@@ -95,6 +92,60 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
         res.redirect(`/student/id_${studentId}/attendance-success?id=${studentId}`)
     } catch (err) {
         res.send(err)
+    }
+});
+
+router.post('/id_:id/attendanceUpdate', ensureAuthenticated, async (req, res) => {
+    console.log("Attendance endpoint reached")
+    var errors = []
+    var studentId = req.params.id;
+
+    const {
+        attendanceId,
+        date,
+        courseExitTime,
+        courseLateTime,
+        courseDinnerTime,
+        firstStudyTime,
+        secondStudyTime,
+        attendance
+    } = req.body
+
+    console.log(req.body); // Check the request body
+
+    if (!date || !courseExitTime || !courseLateTime || !courseDinnerTime || !firstStudyTime || !secondStudyTime || !attendance) {
+        console.log('tüm kısımlar doldurulmalı')
+        errors.push({ msg: 'Bütün Kısımları Eksiksiz Doldurduğunuzdan Emin Olun!' })
+    }
+
+    try {
+        const attendanceRecord = await Attendance.findOne({ _id: attendanceId, date: date, studentId: req.params.id });
+        if (!attendanceRecord) {
+            res.status(200).send("Kayıt bulunamadı")
+            res.redirect(`/student/id_${studentId}/attendance-success?id=${studentId}`)
+        } else {
+            attendanceRecord.courseExitTime = courseExitTime;
+            attendanceRecord.courseLateTime = courseLateTime;
+            attendanceRecord.courseDinnerTime = courseDinnerTime;
+            attendanceRecord.firstStudyTime = firstStudyTime;
+            attendanceRecord.secondStudyTime = secondStudyTime;
+            attendanceRecord.attendance = attendance;
+            await attendanceRecord.save();
+            res.redirect(`/student/id_${studentId}/attendance-success?id=${studentId}`)
+        }
+    } catch (err) {
+        res.send(err)
+    }
+});
+
+router.post('/deleteAtt_:id', ensureAuthenticated, async(req, res) => {
+    try {
+        const attendanceId = req.params.id;
+        await Attendance.findByIdAndDelete(attendanceId);
+        res.status(200).send({ message: 'Attendance deleted successfully' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal server error');
     }
 });
 
