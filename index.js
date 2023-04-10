@@ -6,10 +6,11 @@ const mongoose = require("mongoose");
 const flash = require('connect-flash');
 const chalk = require('chalk')
 const session = require('express-session');
+const Image = require('ascii-art-image');
 
 
 const app = express();
-require('dotenv'),config();
+require('dotenv').config();
 
 let prvt = require("./package.json");
 
@@ -64,17 +65,25 @@ app.use(function(req, res, next) {
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/student', require('./routes/student.js'));
-/*
+
 app.use(function(req, res, next) {
-  res.status(404).send("Üzgünüz, sayfa bulunamadı.");
+    res.status(404);
+    res.render('404');
 });
-*/
 
+var image = new Image({
+    filepath: './public/images/png2.png',
+    alphabet:'hatching',
+    width: 30,
+    height: 30
+});
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(chalk.black.bgRed("\n                                  \n██    ██  ██████  ███████ ██████  \n ██  ██  ██    ██ ██      ██   ██ \n  ████   ██    ██ ███████ ██   ██ \n   ██    ██    ██      ██ ██   ██ \n   ██     ██████  ███████ ██████  \n                                  \n"));
-  console.log(chalk.red(`${prvt.version}`));
-  console.log(chalk.yellow(`Name: ${prvt.name}\nDescription: ${prvt.description}\nGithub ${prvt.repository.url}`) + chalk.cyan(`\n\n${prvt.author}\n${prvt.license}`) + chalk.magenta(`\n\nTotal Modules: ${Object.keys(prvt.dependencies).length + Object.keys(prvt.devDependencies).length}`))
-  console.log("\n")
+app.listen(process.env.PORT, () => {
+    image.write(function(err, rendered){
+        console.log(rendered);
+        console.log(chalk.red(`${prvt.version}`));
+        console.log(chalk.yellow(`Name: ${prvt.name}\nDescription: ${prvt.description}\nGithub ${prvt.repository.url}`) + chalk.cyan(`\n\n${prvt.author}\n${prvt.license}`) + chalk.magenta(`\n\nTotal Modules: ${Object.keys(prvt.dependencies).length + Object.keys(prvt.devDependencies).length}`))
+        console.log("\n")
+        console.log(chalk.bgGrey(`http://127.0.0.1:${process.env.PORT}`))
+    });
 });

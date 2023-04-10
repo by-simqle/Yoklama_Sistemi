@@ -39,10 +39,11 @@
 
 <script>
     <% if (student && student.length > 0) { %>
-    const student = <%= JSON.stringify(student) %>;
+      const student = <%= JSON.stringify(student) %>;
     <% } else { %>
-    alert('Kayıt bulunamadı!');
-    window.location.href = '/dashboard';
+      alert('Kayıt bulunamadı!');
+      window.location.href = '/dashboard';
     <% } %>
 </script>
+  
 
