@@ -1,44 +1,46 @@
-<div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> Öğrenci Ekle
-      </h1>
-      <% include('partials/messages'); %>
-      <form action="/student/addStudent" method="POST">
-        <div class="form-group">
-          <label for="studentName">Öğrenci Adı</label>
-          <input type="text" class="form-control" id="studentName" name="studentName" required>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="text-center mb-3">
+            <i class="fas fa-user-plus"></i> Öğrenci Ekle
+          </h1>
+          <% include('partials/messages'); %>
+          <form action="/student/addStudent" method="POST">
+            <div class="mb-3">
+              <label for="studentName" class="form-label">Öğrenci Adı</label>
+              <input type="text" class="form-control" id="studentName" name="studentName" required>
+            </div>
+            <div class="mb-3">
+              <label for="studentPhoneNumber" class="form-label">Öğrenci Telefon Numarası</label>
+              <input type="tel" class="form-control" id="studentPhoneNumber" name="studentPhoneNumber" required>
+            </div>
+            <div class="mb-3">
+              <label for="parentPhoneNumber" class="form-label">Ebeveyn Telefon Numarası</label>
+              <input type="tel" class="form-control" id="parentPhoneNumber" name="parentPhoneNumber" required>
+            </div>
+            <div class="mb-3">
+              <label for="schoolName" class="form-label">Okul Adı</label>
+              <input type="text" class="form-control" id="schoolName" name="schoolName" required>
+            </div>
+            <div class="mb-3">
+              <label for="schoolNumber" class="form-label">Okul Numarası</label>
+              <input type="text" class="form-control" id="schoolNumber" name="schoolNumber" required>
+            </div>
+            <div class="mb-3">
+              <label for="roomNumber" class="form-label">Oda Numarası</label>
+              <input type="text" class="form-control" id="roomNumber" name="roomNumber" required>
+            </div>
+            <div class="mb-3">
+              <label for="studyClassNo" class="form-label">Etüt Sınıfı</label>
+              <input type="text" class="form-control" id="studyClassNo" name="studyClassNo" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Öğrenci Ekle</button>
+          </form>
+          <p class="lead mt-4">Eklediğiniz Öğrencilere bakmak için <a href="/dashboard">Tıklayınız</a></p>
         </div>
-        <div class="form-group">
-          <label for="studentPhoneNumber">Öğrenci Telefon Numarası</label>
-          <input type="tel" class="form-control" id="studentPhoneNumber" name="studentPhoneNumber" required>
-        </div>
-        <div class="form-group">
-          <label for="parentPhoneNumber">Ebeveyn Telefon Numarası</label>
-          <input type="tel" class="form-control" id="parentPhoneNumber" name="parentPhoneNumber" required>
-        </div>
-        <div class="form-group">
-          <label for="schoolName">Okul Adı</label>
-          <input type="text" class="form-control" id="schoolName" name="schoolName" required>
-        </div>
-        <div class="form-group">
-          <label for="schoolNumber">Okul Numarası</label>
-          <input type="text" class="form-control" id="schoolNumber" name="schoolNumber" required>
-        </div>
-        <div class="form-group">
-          <label for="roomNumber">Oda Numarası</label>
-          <input type="text" class="form-control" id="roomNumber" name="roomNumber" required>
-        </div>
-        <div class="form-group">
-          <label for="studyClassNo">Etüt Sınıfı</label>
-          <input type="text" class="form-control" id="studyClassNo" name="studyClassNo" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Öğrenci Ekle</button>
-      </form>
-
-        <p class="lead mt-4">Eklediğiniz Öğrencilere bakmak için <a href="/dashboard">Tıklayınız</a></p>
       </div>
     </div>
   </div>
-  
+</div>

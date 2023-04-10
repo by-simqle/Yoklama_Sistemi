@@ -1,49 +1,106 @@
 <div class="row mt-5">
-    <div class="col-md-8 m-auto">
-        <button onclick="window.print()"><i class="fas fa-print"></i> Yazdır</button>
-        <div class="card card-body text-center">
-            <img class="d-flex justify-content-center" src="/images/png.png" alt="bune", width="50", height="50">
-            <div class="card-header">
-                <h5 class="mb-0"><%= studentData[0]['studentName'] %> Adlı Öğrencinin Yoklama Bilgileri</h5>
-            </div>
-            <table class="table table-striped table-responsive">
-                <thead>
-                <tr>
-                    <th scope="col">Tarih</th>
-                    <th scope="col">Ders Çıkış Zamanı</th>
-                    <th scope="col">Ders Giriş Zamanı</th>
-                    <th scope="col">Akşam Yemeği</th>
-                    <th scope="col">1. Etüt Zamanı</th>
-                    <th scope="col">2. Etüt Zamanı</th>
-                    <th scope="col">Yoklama</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% student.forEach(attendance => { %>
-                    <tr>
-                        <td><%= attendance.date.toISOString().slice(0, 10) %></td>
-                        <td><%= attendance.courseExitTime %></td>
-                        <td><%= attendance.courseLateTime %></td>
-                        <td><%= attendance.courseDinnerTime ? 'Var' : 'Yok' %></td>
-                        <td><%= attendance.firstStudyTime ? 'Var' : 'Yok' %></td>
-                        <td><%= attendance.secondStudyTime ? 'Var' : 'Yok' %></td>
-                        <td><%= attendance.attendance ? 'Mevcut' : 'Mevcut Değil' %></td>
-                    </tr>
-                <% }); %>
-                </tbody>
-            </table>
-            <a class="btn btn-primary" href="/dashboard">Geri Dön</a>
-        </div>
+  <div class="col-md-8 m-auto">
+    <button onclick="window.print()" class="btn btn-primary"><i class="fas fa-print"></i> Yazdır</button>
+    <div class="card card-body text-center">
+      <img class="d-flex justify-content-center" src="/images/png.png" alt="bune" width="50" height="50">
+      <div class="card-header">
+        <h5 class="mb-0"><%= studentData[0]['studentName'] %> Adlı Öğrencinin Yoklama Bilgileri</h5>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Tarih</th>
+              <th scope="col">Ders Çıkış Zamanı</th>
+              <th scope="col">Ders Giriş Zamanı</th>
+              <th scope="col">Akşam Yemeği</th>
+              <th scope="col">1. Etüt Zamanı</th>
+              <th scope="col">2. Etüt Zamanı</th>
+              <th scope="col">Yoklama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% student.forEach(attendance => { %>
+            <tr>
+              <td><%= attendance.date.toISOString().slice(0, 10) %></td>
+              <td><%= attendance.courseExitTime %></td>
+              <td><%= attendance.courseLateTime %></td>
+              <td><%= attendance.courseDinnerTime ? 'Var' : 'Yok' %></td>
+              <td><%= attendance.firstStudyTime ? 'Var' : 'Yok' %></td>
+              <td><%= attendance.secondStudyTime ? 'Var' : 'Yok' %></td>
+              <td><%= attendance.attendance ? 'Mevcut' : 'Mevcut Değil' %></td>
+              <td><i class="fa fa-pencil-alt me-2" data-bs-toggle="modal" data-bs-target="#editModal"></i></td>
+            </tr>
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="editModalLabel">Yoklama Bilgisi Düzenle</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="POST" action="/student/id_<%= ["_id"] %>/attendance">
+                        <div class="form-group">
+                          <label for="courseExitTime">Ders Çıkış Zamanı</label>
+                          <input type="text" class="form-control" id="courseExitTime" placeholder="Ders Çıkış Zamanı">
+                        </div>
+                        <div class="form-group">
+                          <label for="courseLateTime">Ders Giriş Zamanı</label>
+                          <input type="text" class="form-control" id="courseLateTime" placeholder="Ders Giriş Zamanı">
+                        </div>
+                        <div class="form-group">
+                          <label for="courseDinnerTime">Akşam Yemeği</label>
+                          <select class="form-select" id="courseDinnerTime">
+                            <option selected disabled>Akşam Yemeği</option>
+                            <option value="true">Var</option>
+                            <option value="false">Yok</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="firstStudyTime">1. Etüt Zamanı</label>
+                          <select class="form-select" id="firstStudyTime">
+                            <option selected disabled>1. Etüt Zamanı</option>
+                            <option value="true">Var</option>
+                            <option value="false">Yok</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="secondStudyTime">2. Etüt Zamanı</label>
+                          <select class="form-select" id="secondStudyTime">
+                            <option selected disabled>2. Etüt Zamanı</option>
+                            <option value="true">Var</option>
+                            <option value="false">Yok</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="attendance">Yoklama</label>
+                          <select class="form-select" id="attendance">
+                            <option selected disabled>Yoklama</option>
+                            <option value="true">Mevcut</option>
+                            <option value="false">Mevcut Değil</option>
+                          </select>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+      <a class="btn btn-primary mt-3" href="/dashboard">Geri Dön</a>
     </div>
+  </div>
 </div>
 
 <script>
-    <% if (student && student.length > 0) { %>
-      const student = <%= JSON.stringify(student) %>;
-    <% } else { %>
-      alert('Kayıt bulunamadı!');
-      window.location.href = '/dashboard';
-    <% } %>
+  <% if (student && student.length > 0) { %>
+  const student = <%= JSON.stringify(student) %>;
+  <% } else { %>
+  alert('Kayıt bulunamadı!');
+  window.location.href = '/dashboard';
+  <% } %>
 </script>
-  
-

@@ -78,10 +78,19 @@ router.post('/register', (req, res) => {
 
 // Login
 router.post('/login', (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/users/login',
-    failureFlash: true
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return res.render('login', { error: err.message });
+    }
+    if (!user) {
+      return res.render('login', { error: info.message });
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/dashboard');
+    });
   })(req, res, next);
 });
 
