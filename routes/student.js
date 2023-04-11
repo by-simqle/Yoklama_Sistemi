@@ -71,6 +71,7 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
 
     if (!date || !courseExitTime || !courseLateTime || !courseDinnerTime || !firstStudyTime || !secondStudyTime || !attendance) {
         errors.push({ msg: 'Bütün Kısımları Eksiksiz Doldurduğunuzdan Emin Olun!' })
+        req.flash('error_msg', 'Bütün Kısımları Eksiksiz Doldurduğunuzdan Emin Olun!');
     }
 
     try {
@@ -85,9 +86,11 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
             attendance
         });
         await attendancer.save();
-        res.redirect(`/student/id_${studentId}/attendance-success?id=${studentId}`)
+        req.flash('success_msg', 'Kayıt İşlemi Başarılı');
+        res.redirect(`/dashboard`)
     } catch (err) {
-        res.send(err)
+        req.flash('error_msg', err);
+        res.redirect(`/dashboard`)
     }
 });
 
@@ -135,7 +138,6 @@ router.post('/id_:id/attendanceUpdate', ensureAuthenticated, async (req, res) =>
 });
 
 router.post('/deleteAtt_:id', ensureAuthenticated, async (req, res) => {
-    //const att
     try {
         const attendanceId = req.params.id;
         const attStu = await Attendance.findById(attendanceId);

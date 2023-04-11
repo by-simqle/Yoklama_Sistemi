@@ -12,7 +12,7 @@ module.exports = function(passport) {
         phoneNumber: phoneNumber
       }).then(user => {
         if (!user) {
-          return done(null, false, { message: 'That phoneNumber is not registered' });
+          return done(null, false, { message: 'Telefon Numarası Kayıtlı Değil' });
         }
 
         // Match password
@@ -21,7 +21,7 @@ module.exports = function(passport) {
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: 'Password incorrect' });
+            return done(null, false, { message: 'Şifre Yanlış' });
           }
         });
       });
