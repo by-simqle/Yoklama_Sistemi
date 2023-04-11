@@ -6,7 +6,18 @@
           <h1 class="card-title text-center">
             <i class="fas fa-user-plus"></i> Panel
           </h1>
-          <%= include ("./partials/messages"); %>
+          <% if (errors && errors.length > 0) { %>
+            <script>
+              const alertBox = document.querySelector('.alert');
+              alertBox.classList.remove('d-none');
+            </script>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <% for (let i = 0; i < errors.length; i++) { %>
+                <%= errors[i].msg %><br>
+              <% } %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% } %>
           <form action="/users/register" method="POST">
             <div class="form-floating mb-3">
               <input type="name" id="name" name="name" class="form-control" placeholder=" " value="<%= typeof name != 'undefined' ? name : '' %>">
