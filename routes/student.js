@@ -10,7 +10,7 @@ router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('addStudent');
 })
 
-router.post('/addStudent', ensureAuthenticated, async(req, res) => {
+router.post('/addStudent', ensureAuthenticated, async (req, res) => {
     var errors = []
 
     const {
@@ -44,7 +44,7 @@ router.post('/addStudent', ensureAuthenticated, async(req, res) => {
     }
 });
 
-router.post('/delete_:id', ensureAuthenticated, async(req, res) => {
+router.post('/delete_:id', ensureAuthenticated, async (req, res) => {
     try {
         const studentId = req.params.id;
         await Student.findByIdAndDelete(studentId);
@@ -56,7 +56,6 @@ router.post('/delete_:id', ensureAuthenticated, async(req, res) => {
 });
 
 router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
-    console.log("Attendance endpoint reached")
     var errors = []
     var studentId = req.params.id;
 
@@ -70,10 +69,7 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
         attendance
     } = req.body
 
-    console.log(req.body); // Check the request body
-
     if (!date || !courseExitTime || !courseLateTime || !courseDinnerTime || !firstStudyTime || !secondStudyTime || !attendance) {
-        console.log('tüm kısımlar doldurulmalı')
         errors.push({ msg: 'Bütün Kısımları Eksiksiz Doldurduğunuzdan Emin Olun!' })
     }
 
@@ -138,14 +134,21 @@ router.post('/id_:id/attendanceUpdate', ensureAuthenticated, async (req, res) =>
     }
 });
 
-router.post('/deleteAtt_:id', ensureAuthenticated, async(req, res) => {
+router.post('/deleteAtt_:id', ensureAuthenticated, async (req, res) => {
+    //const att
     try {
         const attendanceId = req.params.id;
+        const attStu = await Attendance.findById(attendanceId);
+        res.redirect(`/student/id_${attStu.studentId}/attendance-success?id=${attStu.studentId}`)
         await Attendance.findByIdAndDelete(attendanceId);
-        res.status(200).send({ message: 'Attendance deleted successfully' });
     } catch (err) {
         console.log(err);
-        res.status(500).send('Internal server error');
+        res.status(500).send({
+            error: 'Internal Server Error',
+            message: err.message,
+            stack: err.stack
+        });
+
     }
 });
 

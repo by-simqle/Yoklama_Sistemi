@@ -30,7 +30,7 @@
               <td><%= attendance.secondStudyTime ? 'Var' : 'Yok' %></td>
               <td><%= attendance.attendance ? 'Mevcut' : 'Mevcut Değil' %></td>
               <td><i class="fa fa-pencil-alt me-2" data-bs-toggle="modal" data-bs-target="#editModal_<%= attendance._id %>"></i></td>
-              <td><<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal_<%= attendance._id %>"><i class="fas fa-trash-alt me-2 text-danger"></i></a>/td>
+              <td><a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal_<%= attendance._id %>"><i class="fas fa-trash-alt me-2 text-danger"></i></a></td>
 
             </tr>
             <div class="modal fade" id="editModal_<%= attendance._id %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
