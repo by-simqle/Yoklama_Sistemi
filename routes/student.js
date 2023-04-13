@@ -47,7 +47,9 @@ router.post('/addStudent', ensureAuthenticated, async (req, res) => {
 router.post('/delete_:id', ensureAuthenticated, async (req, res) => {
     try {
         const studentId = req.params.id;
+        const sture = await Student.findById(studentId);
         await Student.findByIdAndDelete(studentId);
+        req.flash('success_msg', `${sture.studentName} Adlı öğrenci veritabanından başarı ile silindi.`);
         res.redirect('/dashboard');
     } catch (err) {
         console.log(err);
@@ -86,7 +88,8 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
             attendance
         });
         await attendancer.save();
-        req.flash('success_msg', 'Kayıt İşlemi Başarılı');
+        const sture = await Student.findById(studentId);
+        req.flash('success_msg', `${sture.studentName} adlı öğrencinin yoklaması başarı ile alındı`);
         res.redirect(`/dashboard`)
     } catch (err) {
         req.flash('error_msg', err);

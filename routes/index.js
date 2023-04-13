@@ -13,6 +13,7 @@ router.get('/dashboard', ensureAuthenticated, async(req, res) => {
     console.log(err)
   }
   res.render('dashboard', {
+    req,
     user: req.user,
     data: students
   })

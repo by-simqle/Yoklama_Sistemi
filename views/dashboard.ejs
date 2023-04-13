@@ -19,8 +19,11 @@
         <td><%= data[j]["schoolName"] %></td>
         <td><%= data[j]["schoolNumber"] %></td>
         <td>
-          <i class="fas fa-info-circle me-2" data-bs-toggle="modal" data-bs-target="#detailsModal<%= j %>"></i>
-          <i class="fas fa-plus me-2" data-bs-toggle="modal" data-bs-target="#attendanceModal<%= j %>"></i>
+          <i class="fas fa-info-circle me-2 text-warning" data-bs-toggle="modal" data-bs-target="#detailsModal<%= j %>"></i>
+          <i class="fas fa-plus me-2 text-success" data-bs-toggle="modal" data-bs-target="#attendanceModal<%= j %>"></i>
+          <a style="text-decoration: none;" href="/student/id_<%= data[j]["_id"] %>/attendance-success?id=<%= data[j]["_id"] %>" id="addAttendanceButton">
+            <i class="fas fa-eye"></i>&nbsp;&nbsp;
+          </a>
           <a href="#" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal<%= j %>"><i class="fas fa-trash-alt me-2 text-danger"></i></a>
 
           <div class="modal fade" id="attendanceModal<%= j %>" tabindex="-1" aria-labelledby="attendanceModalLabel" aria-hidden="true">
@@ -119,9 +122,6 @@
               <p><strong>Oda Numarası:</strong> <%= data[j]["roomNumber"] %></p>
               <p><strong>Etüt Sınıfı No:</strong> <%= data[j]["studyClassNo"] %></p>
               <p><strong>Veritabanına Eklenme Tarihi:</strong> <%= data[j]["studentDate"].getDate() %>.<%= data[j]["studentDate"].getMonth()+1 %>.<%= data[j]["studentDate"].getFullYear() %>, <%= data[j]["studentDate"].getHours() %>:<%= data[j]["studentDate"].getMinutes() %></p>
-            </div>
-            <div class="modal-footer">
-              <a href="/student/id_<%= data[j]["_id"] %>/attendance-success?id=<%= data[j]["_id"] %>" class="btn btn-primary" id="addAttendanceButton">Kayıtları Göster</a>
             </div>
           </div>
         </div>
