@@ -73,7 +73,7 @@ router.post('/id_:id/attendance', ensureAuthenticated, async (req, res) => {
 
     if (!date || !courseExitTime || !courseLateTime || !courseDinnerTime || !firstStudyTime || !secondStudyTime || !attendance) {
         errors.push({ msg: 'Bütün Kısımları Eksiksiz Doldurduğunuzdan Emin Olun!' })
-        req.flash('error_msg', 'Bütün Kısımları Eksiksiz Doldurduğunuzdan Emin Olun!');
+        req.flash('error_msg', errors);
     }
 
     try {
